@@ -6,6 +6,11 @@ import numpy as np
 from sklearn.neighbors import KDTree
 # import pickle
 
+# import toolpath points from setup file
+import setups.setup2 as setup
+
+
+
 mi.set_variant("llvm_ad_rgb")
 
 def ppt(v, n=''):
@@ -22,15 +27,20 @@ def addAttribute(props, name, default=None):
 class MyTexture(mi.Texture):
     def __init__(self, props):
         mi.Texture.__init__(self, props)
+        
+        # import list of points from setup
+        self.pointsList = setup.getPoints()
+        # print(self.pointsList.list)
             
-        # list of grid points
-        if props.has_property('pointsList'):
-            self.pointsList = props['pointsList']
-        else:
-            self.pointsList = pointsGen.PointsList()
+        # # import list of points if provided
+        # if props.has_property('points'):
+        #     self.pointsList = props['points']
+        # else:
+        #     print("No points were provided.")
+        #     self.pointsList = pointsGen.PointsList()
         
 
-        self.pointsList.addRectGrid(0.3, -1, 1, 0.3, -1, 1, 0, 0, mi.ScalarTransform4f())
+        # self.pointsList.addRectGrid(0.3, -1, 1, 0.3, -1, 1, 0, 0, mi.ScalarTransform4f())
         self.tree = KDTree(self.pointsList.list, leaf_size=10)
         
     

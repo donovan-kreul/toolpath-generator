@@ -1,4 +1,5 @@
 import mitsuba as mi
+mi.set_variant('llvm_ad_rgb')
 import drjit as dr
 from drjit.llvm import Float
 import math
@@ -130,7 +131,7 @@ class PointsList():
     # generate a rectangular grid of points 
     # compresses xStart/xStop and yStart/yStop so that they are a multiple of xWidth and yWidth respectively
     # and stretches them far enough so that the entire surface gets the full number of possible rings
-    def addRectGrid(self, xWidth, xStart, xStop, yWidth, yStart, yStop, zHeight, radius, transform=mi.ScalarTransform4f()):
+    def addRectGrid(self, xWidth, xStart, xStop, yWidth, yStart, yStop, zHeight, transform=mi.ScalarTransform4f()):
         # if radius < xWidth:
         (xStart, xStop) = (math.ceil(xStart / xWidth) * xWidth, math.floor(xStop / xWidth) * xWidth)
         # else:
