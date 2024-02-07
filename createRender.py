@@ -2,6 +2,9 @@ import mitsuba as mi
 mi.set_variant('llvm_ad_rgb')
 import drjit as dr
 import time
+import pointsTexture
+
+mi.register_texture("pointsTex", lambda props: pointsTexture.MyTexture(props))
 
 def make_scene(resolution, camOrigin):
     cam_transform = mi.ScalarTransform4f.look_at(
@@ -34,19 +37,22 @@ def make_scene(resolution, camOrigin):
     'object': {
         'type': 'rectangle',
         'bsdf': {
-            'type': 'roughconductor',
-            'material': 'Al',
-            'distribution': 'ggx',
-            'alpha': 0.1,
+            'type': 'diffuse',
+            'reflectance': {
+                'type': 'pointsTex'
+            }
         }
     }
 })
 
 
 if __name__ == '__main__':
-    resolution = (1024, 1024)
+    resolution = (512, 512)
     camOrigin = [0, -3, 3]
-    spp = 32
+    spp = 16
+    
+    dr.set_flag(dr.JitFlag.VCallRecord, False)
+    dr.set_flag(dr.JitFlag.LoopRecord, False)
     
     t = time.time()
     scene = make_scene(resolution, camOrigin)
