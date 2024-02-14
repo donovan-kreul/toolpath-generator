@@ -55,12 +55,20 @@ def make_scene(resolution, camOrigin):
         }
     },
     'object': {
-        'type': 'rectangle',
+    #     'type': 'rectangle',
+    #     'bsdf': {
+    #         'type': 'diffuse',
+    #         'reflectance': {
+    #             'type': 'pointsTex',
+    #             # 'pointsList': points
+    #         }
+    #     }
+        'type': 'obj',
+        'filename': 'objects/wavy-plane.obj',
         'bsdf': {
             'type': 'diffuse',
             'reflectance': {
                 'type': 'pointsTex',
-                # 'pointsList': points
             }
         }
     }
@@ -70,7 +78,7 @@ def make_scene(resolution, camOrigin):
 if __name__ == '__main__':
     # default parameters, optionally overwritten by setup file 
     resolution = (512, 512)
-    camOrigin = [0, -3, 3]
+    camOrigin = [0, -2, 3]
     spp = 16
 
     # pull PointsList from setup file

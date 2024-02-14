@@ -7,7 +7,7 @@ from sklearn.neighbors import KDTree
 # import pickle
 
 # import toolpath points from setup file
-import setups.setup2 as setup
+import setups.setupwavy as setup
 
 
 
